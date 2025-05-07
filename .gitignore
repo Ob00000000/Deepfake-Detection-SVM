@@ -1,0 +1,37 @@
+# Ignore environment files
+.env
+env/
+venv/
+*.pyc
+__pycache__/
+instance/
+config.py
+
+
+
+# Ignore compiled models & large files
+
+*.h5
+*.onnx
+*.tflite
+
+# Ignore uploads and data
+uploads/
+data/
+backup/
+
+
+# Ignore logs and caches
+*.log
+*.sqlite3
+*.db
+*.cache/
+*.bak
+
+# Ignore VSCode workspace settings
+.vscode/
+.history/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db

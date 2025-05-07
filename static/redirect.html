@@ -1,0 +1,264 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deepfake Detection</title>
+  <style>
+    /* General styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    /* Header styles */
+    header {
+      background: linear-gradient(135deg, #4CAF50, #2E7D32);
+      color: #fff;
+      padding: 1rem 0;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav ul li {
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    /* Section styles */
+    section {
+      padding: 20px;
+      max-width: 800px;
+      margin: 20px auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    section h2 {
+      border-bottom: 2px solid #4CAF50;
+      padding-bottom: 5px;
+      color: #2E7D32;
+    }
+
+    section p {
+      font-size: 1.1rem;
+    }
+
+    ul {
+      margin: 10px 0;
+      padding: 0;
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+
+    /* Try It Yourself styles */
+    #try-yourself input[type="file"] {
+      display: block;
+      margin: 10px 0;
+    }
+
+    button {
+      background: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #2E7D32;
+    }
+
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    /* Footer styles */
+    footer {
+      text-align: center;
+      background: #4CAF50;
+      color: #fff;
+      padding: 10px 0;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Deepfake Detection</h1>
+    <nav>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        
+      </ul>
+    </nav>
+  </header>
+
+  <section id="overview">
+    <h2>Overview</h2>
+    <p>
+      Deepfakes are synthetic media where a person's likeness is convincingly replaced
+      or manipulated using AI. While they have creative applications, they also pose 
+      serious ethical and security concerns.
+    </p>
+  </section>
+
+  <section id="how-it-works">
+    <h2>How It Works</h2>
+    <p>
+        Deepfakes use advanced deep learning techniques to first encode features, then reconstruct images from the encoded features. Autoencoders, a type of neural network, are the most commonly used deep learning architecture for creating deepfakes. Let’s explore this through an example of using the deepfake technique to swap faces of two people.
+
+        The first step to producing a deepfake is transforming the face images into smaller feature-based representations using an encoder. This more information-rich representation is often referred to as the latent face. The latent face will contain representations of features such as the nose shape, skin tone and eye color. We use the same encoder for each person so the representations produced have the same meaning.
+        
+        We then transform the latent face back into an image using a decoder. Depending on which images we use to train the decoder, the output face image will vary. The key part for face swapping is that the decoder for person A is applied to the latent face of person B, and vice versa. In this way, the output face will have the expression and structure of person A, but the style and look of person B.
+        
+        Deepfake image of illustrating how a deepfake process works. The image is color coded as described by the author below.
+        The process of creating a deepfake. | Image: Jye Sawtell-Rickson
+        This figure shows the deepfake process through training (top two rows) and the creation of a deepfake (bottom row). In the training phase, the encoder (blue) is shared between different images to create the latent faces (middle portraits) from the input images (left portraits).
+        
+        Individual decoders are trained for each person (green and pink). In the creation phase, the same encoder is used, but the decoder for a different person is used. This leads to an image that has the pose and expression of the input image but the style of the person used to create the decoder.
+    <h2>Are Deepfakes Only Videos?</h2>
+    <p>
+
+        While deepfakes are most often presented in videos, they can be found in photos and even audio. 
+
+The key applications of deepfake technology include:
+
+Face swap: Face swap is the most common and obvious technique, where the faces of two people are swapped. This is generally to produce an image of a celebrity in a scene they weren’t in.
+Face synthesis: Face synthesis stretches reality and generates a face for a person that never existed.
+Facial attributes and expression manipulation: In attribute and expression manipulation, a face is altered by either changing specific features such as the eyes, or by altering their expression, for example, turning a frown upside down.
+    </p>
+    <h2>How to Spot a Deepfake</h2>
+    <p>
+
+        With the wide availability of deepfake generation tools, it’s important that everyone has a basic understanding of how to spot a deepfake. There are deepfake detection tools available to the public, but these don’t always identify deepfakes. As a result, it’s important to be aware of the ways to detect a deepfake:
+
+Unnatural face, environment or lighting: Deepfake images or sections of videos can have unnatural facial expressions, facial feature placement or jagged edges. The environment itself (such as the lighting) can also be unrealistic. 
+Unnatural behavior: In deepfake videos there must be continuity between images, but this is difficult to implement. As a result, you might spot unnatural behaviors such as uneven blinking or choppy motion.
+Image artifacts and blurriness: Deepfake images may have weird artifacts such as blurriness around the neck where the body of one person is stitched together with the face of another.
+Audio: When deepfakes are combined with audio, the lips may follow an unexpected motion compared to what you would expect from the audio.
+    </p>
+
+    <h2>How Do You Make a Deepfake?</h2>
+    <p>
+
+        Creating deepfakes is surprisingly easy. A wide array of smartphone apps makes deepfake production readily accessible to a majority of the population. In addition to apps, computer programs allow a person to run far more advanced reproductions on local CPUs (computer processing units), or the best reproductions on GPUs (graphics processing units).
+
+Some of the most popular tools are:
+
+FaceApp: FaceApp transforms photos to add and remove features, thereby allowing users to craft celebrity-like photos in just a few clicks.
+Wombo: Wombo creates singing and dancing video clips from users’ uploaded photos.
+Deepfakes Web: Deepfakes Web is a cloud-based application that can realistically swap out faces of people in videos.
+Face Swap Live: Face Swap Live lets users swap faces with someone during live videos and with figures in images.
+    </p>
+
+    </p>
+    <h2>How Do You fnd a Deepfake?</h2>
+    <ul>
+      <li>Analyzing facial expressions and movements</li>
+      <li>Detecting artifacts in video or audio</li>
+      <li>Using AI models trained to spot fake content</li>
+    </ul>
+  </section>
+
+
+  <footer>
+    <p>&copy; Deepfake Detection </p>
+  </footer>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake Detection | Smart AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero-section">
+        <h1>DeepFake Detection</h1>
+        <p>AI-Powered Real-Time Video Authentication</p>
+    </div>
+
+    <section id="video-upload">
+        <h2>Analyze Your Video</h2>
+        <div class="upload-container">
+            <div class="video-preview" id="videoPreviewContainer">
+                <video id="videoPreview" controls style="display:none;"></video>
+                <div id="processingOverlay" class="processing-overlay">Analyzing Video...</div>
+            </div>
+            <div class="loader-container" id="loaderContainer">
+                <div class="loader"></div>
+                <p>Uploading...</p>
+            </div>
+            <form id="videoForm" onsubmit="handleVideoSubmit(event)">
+                <label for="videoFile">Select a video file (Max 100MB)</label>
+                <input type="file" id="videoFile" accept="video/*" required onchange="previewVideo()">
+                <p id="error-message">⚠️ File size exceeds limit!</p>
+                <button type="submit" id="analyzeBtn">Analyze Now →</button>
+            </form>
+        </div>
+        <div id="result-container" class="result-container"></div>
+    </section>
+
+    <section id="features">
+        <h2>Core Features</h2>
+        <ul>
+            <li>Frame-wise Landmark Detection</li>
+            <li>AI-Based Classification</li>
+            <li>Real-Time Confidence Score</li>
+        </ul>
+    </section>
+    
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

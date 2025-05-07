@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake Detection | Smart AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero-section">
+        <h1>DeepFake Detection</h1>
+        <p>AI-Powered Real-Time Video Authentication</p>
+    </div>
+
+    <section id="video-upload">
+        <h2>Analyze Your Video</h2>
+        <div class="upload-container">
+            <div class="loader-container" id="loaderContainer">
+                <div class="loader"></div>
+                <p>Uploading...</p>
+            </div>
+            <form id="videoForm" onsubmit="handleVideoSubmit(event)">
+                <label for="videoFile">Select a video file (Max 100MB)</label>
+                <input type="file" id="videoFile" accept="video/*" required onchange="previewVideo()">
+                <p id="error-message">⚠️ File size exceeds limit!</p>
+                <button type="submit" id="analyzeBtn">Analyze Now →</button>
+            </form>
+
+            <div class="video-preview" id="videoPreviewContainer">
+                <video id="videoPreview" controls></video>
+            </div>
+
+            <div id="processingOverlay" class="processing-overlay">Analyzing Video...</div>
+        </div>
+        <div id="result-container" class="result-container"></div>
+    </section>
+
+    <section id="features">
+        <h2>Core Features</h2>
+        <ul>
+            <li>Frame-wise Landmark Detection</li>
+            <li>AI-Based Classification</li>
+            <li>Real-Time Confidence Score</li>
+        </ul>
+    </section>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

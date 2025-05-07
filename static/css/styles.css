@@ -1,0 +1,151 @@
+:root {
+    --primary: #00f3ff;
+    --secondary: #6c63ff;
+    --dark: #0a0e1a;
+    --dark-alt: #1a2238;
+    --header-height: 70px;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--dark);
+    color: #e0e0e0;
+    line-height: 1.6;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+header {
+    background: #111827cc;
+    backdrop-filter: blur(10px);
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.hero-section {
+    text-align: center;
+    padding: 4rem 1rem 2rem;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.upload-container {
+    background: #1f2937;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    text-align: center;
+    position: relative;
+    border: 2px dashed var(--secondary);
+}
+
+label {
+    font-weight: 600;
+}
+
+input[type="file"] {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+button {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    background: var(--primary);
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: var(--secondary);
+    color: white;
+}
+
+#result-container {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    text-align: center;
+    font-size: 1.2rem;
+    display: none;
+}
+
+.loader-container {
+    display: none;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    backdrop-filter: blur(2px);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.loader {
+    width: 40px;
+    height: 40px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-top: 5px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.processing-overlay {
+    display: none;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    color: white;
+    font-size: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+}
+
+.video-preview {
+    position: relative;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.video-preview video {
+    width: 100%;
+    max-height: 300px;
+    border-radius: 10px;
+    display: none;
+}
