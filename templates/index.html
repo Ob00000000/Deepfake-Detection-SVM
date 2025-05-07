@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deepfake Detection | Smart AI</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DeepFake | Deepfake Detection</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
@@ -18,38 +19,34 @@
 
     <div class="hero-section">
         <h1>DeepFake Detection</h1>
-        <p>AI-Powered Real-Time Video Authentication</p>
+        <p>Advanced Deepfake Detection Solution</p>
     </div>
 
     <section id="video-upload">
-        <h2>Analyze Your Video</h2>
+        <h2>Analyze Media Content</h2>
         <div class="upload-container">
-            <div class="loader-container" id="loaderContainer">
+            <div class="loader-container">
                 <div class="loader"></div>
-                <p>Uploading...</p>
             </div>
             <form id="videoForm" onsubmit="handleVideoSubmit(event)">
-                <label for="videoFile">Select a video file (Max 100MB)</label>
-                <input type="file" id="videoFile" accept="video/*" required onchange="previewVideo()">
+                <label for="videoFile">Select Video File (Max: 100MB)</label>
+                <input type="file" id="videoFile" accept="video/*" required>
                 <p id="error-message">⚠️ File size exceeds limit!</p>
                 <button type="submit" id="analyzeBtn">Analyze Now →</button>
             </form>
-
-            <div class="video-preview" id="videoPreviewContainer">
-                <video id="videoPreview" controls></video>
-            </div>
-
-            <div id="processingOverlay" class="processing-overlay">Analyzing Video...</div>
         </div>
         <div id="result-container" class="result-container"></div>
     </section>
+    <div id="result" style="font-weight: bold; font-size: 1.2rem;"></div>
+    <div id="reason" style="margin-top: 5px; color: #555;"></div>
+
 
     <section id="features">
-        <h2>Core Features</h2>
+        <h2>Core Capabilities</h2>
         <ul>
-            <li>Frame-wise Landmark Detection</li>
-            <li>AI-Based Classification</li>
-            <li>Real-Time Confidence Score</li>
+            <li>Real-time Deepfake Detection</li>
+            <li>Multimodal Content Analysis</li>
+            <li>Neural Network Verification</li>
         </ul>
     </section>
 

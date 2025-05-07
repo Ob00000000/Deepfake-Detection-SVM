@@ -1,31 +1,31 @@
-const MAX_FILE_SIZE = 100 * 1024 * 1024;
+const MAX_FILE_SIZE = 100 * 1024 * 1024; // Max file size: 100MB
 const analyzeBtn = document.getElementById('analyzeBtn');
-const loaderContainer = document.getElementById('loaderContainer');
+const loaderContainer = document.querySelector('.loader-container');
 const resultContainer = document.getElementById('result-container');
-const processingOverlay = document.getElementById('processingOverlay');
-const videoPreview = document.getElementById('videoPreview');
+const errorMessage = document.getElementById('error-message');
 
 function handleVideoSubmit(event) {
     event.preventDefault();
     const videoInput = document.getElementById('videoFile');
-    const errorMessage = document.getElementById('error-message');
     const file = videoInput.files[0];
 
+    // Check for file size exceeding the limit
     if (file && file.size > MAX_FILE_SIZE) {
-        errorMessage.style.display = 'block';
-        videoInput.value = '';
+        errorMessage.style.display = 'block'; // Show error message
+        videoInput.value = ''; // Clear input field
         return;
     }
 
-    errorMessage.style.display = 'none';
+    errorMessage.style.display = 'none'; // Hide error message when valid
 
     if (file) {
+        // Show loading states
         loaderContainer.style.display = 'flex';
-        processingOverlay.style.display = 'flex';
         analyzeBtn.classList.add('is-loading');
-        analyzeBtn.disabled = true;
+        analyzeBtn.disabled = true; // Disable button to prevent multiple clicks
 
-        uploadVideo(file);
+        resultContainer.style.display = 'none'; // Hide result container until analysis is complete
+        uploadVideo(file); // Call upload function
     }
 }
 
@@ -39,42 +39,34 @@ function uploadVideo(file) {
     })
     .then(response => response.json())
     .then(data => {
+        // Hide loader
         loaderContainer.style.display = 'none';
-        processingOverlay.style.display = 'none';
         analyzeBtn.classList.remove('is-loading');
-        analyzeBtn.disabled = false;
+        analyzeBtn.disabled = false; // Re-enable the button
 
         if (data.status === 'success') {
-            resultContainer.innerHTML = `<p>Analysis Complete: <strong>${data.prediction}</strong> - ${data.confidence} confidence</p>`;
-            resultContainer.style.display = 'block';
+            // Display the results after analysis
+            resultContainer.innerHTML = `
+                <p>Analysis Complete: <strong>${data.prediction}</strong> - ${data.confidence} confidence</p>
+                <p>Reason: ${data.reason}</p>
+            `;
+            resultContainer.style.display = 'block'; // Show result container
         } else {
+            // Handle error case and display message
             resultContainer.innerHTML = `<p style="color: red;">Error: ${data.message}</p>`;
-            resultContainer.style.display = 'block';
+            resultContainer.style.display = 'block'; // Show result container with error message
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        loaderContainer.style.display = 'none';
-        processingOverlay.style.display = 'none';
+        loaderContainer.style.display = 'none'; // Hide loader
         analyzeBtn.classList.remove('is-loading');
-        analyzeBtn.disabled = false;
+        analyzeBtn.disabled = false; // Re-enable the button
+
         resultContainer.innerHTML = `<p style="color: red;">Analysis failed. Please try again.</p>`;
-        resultContainer.style.display = 'block';
+        resultContainer.style.display = 'block'; // Show result container with error message
     });
 }
 
-function previewVideo() {
-    const videoFileInput = document.getElementById('videoFile');
-    const videoPreview = document.getElementById('videoPreview');
-    const file = videoFileInput.files[0];
-
-    if (file) {
-        const videoURL = URL.createObjectURL(file);
-        videoPreview.src = videoURL;
-        videoPreview.load(); // force reload
-        videoPreview.style.display = 'block';
-    } else {
-        videoPreview.src = '';
-        videoPreview.style.display = 'none';
-    }
-}
+// Bind the form submission handler
+document.getElementById('videoForm').addEventListener('submit', handleVideoSubmit);
