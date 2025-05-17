@@ -31,6 +31,16 @@ This project is a Deepfake Detection web application that uses facial landmarks 
 ```
 Deepfake-Detection/
 │
+├──process/
+    └──dataset_processing.py   # Processing on dataset
+    └──landmark_extracion.py   # Exctracting landmarks
+    └──main.py                 # Building model
+    └──model_training.py       # Training model
+    └──video_processing.py     # Video processing
+├──Deepfake_detection/
+    └──shape_predictor_68_face_landmarks.dat # Pretrained model for extracting landmarks
+├──model/
+    └──svm_face_classifier.pkl # Backup model (pre-trained)
 ├── app.py                     # Flask backend server
 ├── svm_face_classifier.pkl    # Trained SVM model
 ├── templates/
@@ -51,7 +61,7 @@ Deepfake-Detection/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/deepfake-detection.git
+git clone https://github.com/Ob00000000/deepfake-detection.git
 cd deepfake-detection
 ```
 
@@ -74,6 +84,8 @@ numpy
 scikit-learn
 joblib
 ```
+- **If you are having truble with building the dlib wheel then try installing the binary distribution of lib**
+[Download from here](https://github.com/z-mahmud22/Dlib_Windows_Python3.x)
 
 ### 3. Download Pretrained Models
 
