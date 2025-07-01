@@ -1,6 +1,6 @@
 tensorflow==2.16.1
 opencv-python==4.9.0.80
 cmake==3.29.2
-https://github.com/Ob00000000/Deepfake-Detection-SVM/blob/7e485e31eb037c8d3e37e15f6152679df4ba2ca7/dlib-19.24.99-cp312-cp312-win_amd64%20(1).whl
+https://github.com/Ob00000000/Deepfake-Detection-SVM/blob/acdacdb5314548cc4c047cfb03a0499842594e42/dlib-19.24.99-cp312-cp312-win_amd64.whl
 numpy==1.26.4
 scikit-learn==1.4.2
