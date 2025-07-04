@@ -5,3 +5,4 @@ https://files.pythonhosted.org/packages/fc/2d/1c8b949911e28de22ed795a29ad1879a6a
 numpy==1.26.4
 scikit-learn==1.4.2
 flask==3.1.1
+flask-CORS==3.0.10
