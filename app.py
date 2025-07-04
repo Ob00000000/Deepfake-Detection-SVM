@@ -18,10 +18,10 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 # Load model and Dlib's components
-model_path = "E:\\Projects\\Deepfake Detection\\svm_face_classifier.pkl"
+model_path = "svm_face_classifier.pkl"
 model = joblib.load(model_path)  # Must be trained with probability=True
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor('E:\\Projects\\Deepfake Detection\\deepfake_detection\\shape_predictor_68_face_landmarks.dat')
+predictor = dlib.shape_predictor('deepfake_detection/shape_predictor_68_face_landmarks.dat')
 
 
 def allowed_file(filename):
