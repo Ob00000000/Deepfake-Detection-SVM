@@ -4,3 +4,4 @@ cmake==3.29.2
 https://files.pythonhosted.org/packages/fc/2d/1c8b949911e28de22ed795a29ad1879a6a3541d75144c51d76dfdef512f8/dlib_bin-19.24.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 numpy==1.26.4
 scikit-learn==1.4.2
+flask==3.1.1
