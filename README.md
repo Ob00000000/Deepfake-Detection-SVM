@@ -85,7 +85,7 @@ scikit-learn
 joblib
 ```
 - **If you are having truble with building the dlib wheel then try installing the binary distribution of lib**
-[Download from here](https://github.com/z-mahmud22/Dlib_Windows_Python3.x)
+[Download from here]((https://github.com/z-mahmud22/Dlib_Windows_Python3.x))
 
 ### 3. Download Pretrained Models
 
