@@ -6,7 +6,7 @@ venv/
 __pycache__/
 instance/
 config.py
-
+myenv/
 
 
 # Ignore compiled models & large files

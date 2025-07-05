@@ -3,53 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>DeepFake | Deepfake Detection</title>
+    <meta name="description" content="Advanced DeepFake Detection using AI - Analyze videos in real-time with machine learning for authenticity verification">
+    <meta name="keywords" content="deepfake detection, AI video analysis, facial recognition, video authentication, machine learning">
+    <meta name="author" content="DeepFake Detection">
+    <meta property="og:title" content="DeepFake Detection ">
+    <meta property="og:description" content="Verify video authenticity using advanced AI technology">
+    <meta property="og:type" content="website">
+    <title>Deepfake Detection | Smart AI Video Analysis</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav>
             <ul>
                 <li><a href="#home">Home</a></li>
-                <li><a href="#features">Features</a></li>
+                <li><a href="#features">Feature</a></li>
             </ul>
         </nav>
     </header>
 
     <div class="hero-section">
         <h1>DeepFake Detection</h1>
-        <p>Advanced Deepfake Detection Solution</p>
+        <p>Real-Time Video Authentication</p>
     </div>
 
     <section id="video-upload">
-        <h2>Analyze Media Content</h2>
+        <h2>Analyze Your Video</h2>
         <div class="upload-container">
-            <div class="loader-container">
-                <div class="loader"></div>
+            <div class="loader-container" id="loaderContainer">
+                <!-- <div class="loader"></div> -->
+                <p class="uploading-text">Uploading...</p>
             </div>
             <form id="videoForm" onsubmit="handleVideoSubmit(event)">
-                <label for="videoFile">Select Video File (Max: 100MB)</label>
-                <input type="file" id="videoFile" accept="video/*" required>
-                <p id="error-message">⚠️ File size exceeds limit!</p>
+                <label for="videoFile">Select a video file (Max 100MB)</label>
+                <input type="file" id="videoFile" accept="video/*" required onchange="previewVideo()">
+                <p id="error-message" style="display: none;">⚠️ File size exceeds limit!</p>
                 <button type="submit" id="analyzeBtn">Analyze Now →</button>
             </form>
-        </div>
-        <div id="result-container" class="result-container"></div>
-    </section>
-    <div id="result" style="font-weight: bold; font-size: 1.2rem;"></div>
-    <div id="reason" style="margin-top: 5px; color: #555;"></div>
 
+            <div class="video-preview" id="videoPreviewContainer" style="position: relative;">
+                <video id="videoPreview" controls></video>
+                <div class="loader-container" id="loaderContainer">
+                    <!-- <div class="loader"></div> -->
+                    <p>Analyzing Video...</p>
+                </div>
+            </div>
+
+            <div id="processingOverlay" class="processing-overlay">Analyzing Video...</div>
+        </div>
+        <div id="resultContainer" class="result-container" >
+            <div class="result-summary horizontal-result-summary">
+                <div class="result-left">
+                    <div id="analysis-result"></div>
+                    <div id="justification" class="justification-text"></div>
+                </div>
+                <div class="result-right">
+                    <div id="confidenceGaugeContainer">
+                        <svg id="confidenceGauge" width="120" height="120" viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="52" stroke="#e5e7eb" stroke-width="12" fill="none"/>
+                            <circle id="confidenceArc" cx="60" cy="60" r="52" stroke="#00f3ff" stroke-width="12" fill="none"
+                                stroke-linecap="round" stroke-dasharray="326.7256" stroke-dashoffset="326.7256"
+                                transform="rotate(-90 60 60)"/>
+                            <text id="confidenceText" x="60" y="68" text-anchor="middle" font-size="18px" fill="#00f3ff" font-weight="bold">0%</text>
+                        </svg>
+                        <div class="confidence-label">Confidence</div>
+                    </div>
+                </div>
+            </div>
+            <button id="analyzeAnotherBtn" style="display: none;">Analyze Another Video</button>
+            <div id="downloadReportSection" class="download-report-section" style="display: none;">
+                <button id="downloadReportBtn" class="download-report-btn">⬇️ Download Detailed Report</button>
+            </div>
+            <div id="frameSection" class="frame-section" style="display:none;">
+                <h4>Extracted Frames</h4>
+                <div id="frameDisplay" class="frame-display-container"></div>
+            </div>
+        </div>
+
+        <!-- Progress Bar Loader -->
+        <div id="progressBarContainer" style="display:none; width:100%; margin-bottom:1rem;">
+            <div id="progressBar" style="height:8px; width:0; background:linear-gradient(90deg,#00f3ff,#6c63ff); border-radius:4px; transition:width 0.3s;"></div>
+        </div>
+
+        <!-- Animated Spinner Loader -->
+        <div id="spinnerLoader" style="display:none; justify-content:center; align-items:center; margin-bottom:1rem;">
+            <div class="loader"></div>
+        </div>
+
+        <div id="confidenceGaugeContainer" style="display:none; margin: 0 auto 24px auto;">
+            <svg id="confidenceGauge" width="120" height="120" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="52" stroke="#e5e7eb" stroke-width="12" fill="none"/>
+                <circle id="confidenceArc" cx="60" cy="60" r="52" stroke="#00f3ff" stroke-width="12" fill="none"
+                    stroke-linecap="round" stroke-dasharray="326.7256" stroke-dashoffset="326.7256"
+                    transform="rotate(-90 60 60)"/>
+                <text id="confidenceText" x="60" y="68" text-anchor="middle" font-size="18px" fill="#00f3ff" font-weight="bold">0%</text>
+            </svg>
+            <div style="text-align:center; color:var(--primary); font-weight:600; margin-top:4px;">Confidence</div>
+        </div>
+    </section>
 
     <section id="features">
-        <h2>Core Capabilities</h2>
-        <ul>
-            <li>Real-time Deepfake Detection</li>
-            <li>Multimodal Content Analysis</li>
-            <li>Neural Network Verification</li>
-        </ul>
+        <h2>Core Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Frame-wise Analysis</h3>
+                <p>Advanced landmark detection for precise frame-by-frame analysis</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>Classification</h3>
+                <p>State-of-the-art machine learning algorithms for accurate detection</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Confidence Scoring</h3>
+                <p>Real-time confidence scores with detailed analysis</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Fast Processing</h3>
+                <p>Quick analysis with minimal waiting time</p>
+            </div>
+        </div>
     </section>
 
+    <section id="how-it-works">
+        <h2>How It Works</h2>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Upload Video</h3>
+                <p>Select and upload your video file (max 100MB)</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>AI Analysis</h3>
+                <p>Our AI processes each frame for deepfake detection</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Get Results</h3>
+                <p>Receive detailed analysis with confidence scores</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Our Technology</h2>
+        <div class="about-content">
+            <p>Our deepfake detection system uses advanced computer vision and machine learning techniques to analyze videos for potential manipulation. The system examines facial landmarks, temporal consistency, and other visual artifacts to determine authenticity.</p>
+            <div class="tech-stack">
+                <h3>Technology Stack</h3>
+                <ul>
+                    <li>SVM & Scikit-learn</li>
+                    <li>OpenCV</li>
+                    <li>Flask Backend</li>
+                    <li>Modern Web Technologies</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 DeepFake Detection. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme">🌙</button>
+
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>

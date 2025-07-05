@@ -4,8 +4,8 @@ import joblib
 
 if __name__ == "__main__":
     # Paths to real and fake folders
-    real_folder = "E:\\Projects\\Deepfake Detection\\data\\real_videos"
-    fake_folder = "E:\\Projects\\Deepfake Detection\\data\\deepfake_videos"
+    real_folder = "D:\\Deepfake-Detection-SVM\\data\\real_videos"
+    fake_folder = "D:\\Deepfake-Detection-SVM\\data\\deepfake_videos"
 
     # Step 1: Process the dataset to extract features and labels
     print("Extracting features from dataset...")
@@ -17,6 +17,6 @@ if __name__ == "__main__":
     model = train_model(X, y)
 
     # Step 3: Save the trained model for later use
-    model_path = "E:\Projects\Deepfake Detection\svm_face_classifier.pkl"
+    model_path = "D:\Deepfake-Detection-SVM\svm_face_classifier.pkl"
     joblib.dump(model, model_path)
     print(f"Model saved to {model_path}")

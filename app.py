@@ -18,10 +18,10 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 # Load model and Dlib's components
-model_path = "E:\\Projects\\Deepfake Detection\\svm_face_classifier.pkl"
+model_path = "D:\\Deepfake-Detection-SVM\\svm_face_classifier.pkl"
 model = joblib.load(model_path)  # Must be trained with probability=True
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor('E:\\Projects\\Deepfake Detection\\deepfake_detection\\shape_predictor_68_face_landmarks.dat')
+predictor = dlib.shape_predictor('D:\\Deepfake-Detection-SVM\\deepfake_detection\\shape_predictor_68_face_landmarks.dat')
 
 
 def allowed_file(filename):
@@ -112,5 +112,14 @@ def upload_video():
     return jsonify({'status': 'error', 'message': 'File type not allowed'}), 400
 
 
+@app.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({'status': 'ok', 'message': 'Service is running'}), 200  
+
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
+# This code sets up a Flask web application that allows users to upload videos for deepfake detection.
+# It uses a pre-trained SVM model to classify the videos as real or fake based on facial landmarks extracted from the video frames.
+# The application supports CORS for cross-origin requests and handles file uploads securely.    

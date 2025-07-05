@@ -4,7 +4,7 @@ import numpy as np
 
 # Initialize dlib's face detector and shape predictor
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor('E:\\Projects\\Deepfake Detection\\deepfake_detection\\shape_predictor_68_face_landmarks.dat')
+predictor = dlib.shape_predictor('D:\\Deepfake-Detection-SVM\\deepfake_detectionshape_predictor_68_face_landmarks.dat')
 
 def extract_landmarks_from_frame(frame):
     """
